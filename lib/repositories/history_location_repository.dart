@@ -1,32 +1,71 @@
-import 'package:hive/hive.dart';
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:g_feather_forecast/models/location_model.dart';
+import 'package:universal_html/html.dart' as html;
 
-class HistoryLocationRepository {
-  static const String _boxName = 'location_history';
+abstract class HistoryLocationRepository {
+  Future<List<LocationModel>> getHistoryLocation();
+  Future<void> saveHistoryLocation(LocationModel location);
+}
 
-  Future<void> init() async {
-    await Hive.openBox<List>(_boxName); // Box chứa Map<String, List<LocationModel>>
-  }
+class WebHistoryLocationRepository extends HistoryLocationRepository {
+  static const String _prefix = 'location_history_';
 
+  @override
   Future<List<LocationModel>> getHistoryLocation() async {
-    final box = Hive.box<List>(_boxName);
     final today = DateTime.now().toIso8601String().split("T").first;
+    final jsonString = html.window.localStorage['$_prefix$today'];
 
-    final List? storedList = box.get(today);
-    if (storedList != null) {
-      return storedList.cast<LocationModel>();
+    if (jsonString != null) {
+      final decoded = json.decode(jsonString) as List;
+      return decoded.map((e) => LocationModel.fromJson(e)).toList();
     }
     return [];
   }
 
+  @override
   Future<void> saveHistoryLocation(LocationModel location) async {
-    final box = Hive.box<List>(_boxName);
+    final today = DateTime.now().toIso8601String().split("T").first;
+    final existing = await getHistoryLocation();
+
+    final alreadyExists = existing.any((loc) => loc == location);
+    if (!alreadyExists) {
+      existing.add(location);
+      final encoded = json.encode(existing.map((e) => e.toJson()).toList());
+      html.window.localStorage['$_prefix$today'] = encoded;
+    }
+  }
+}
+
+class MobileHistoryLocationRepository extends HistoryLocationRepository {
+  static const String _prefix = 'location_history_';
+
+  @override
+  Future<List<LocationModel>> getHistoryLocation() async {
+    final prefs = await SharedPreferences.getInstance();
     final today = DateTime.now().toIso8601String().split("T").first;
 
-    final existingList = box.get(today)?.cast<LocationModel>() ?? [];
+    final jsonString = prefs.getString('$_prefix$today');
+    if (jsonString != null) {
+      final decoded = json.decode(jsonString) as List;
+      return decoded.map((e) => LocationModel.fromJson(e)).toList();
+    }
+    return [];
+  }
 
-    // Thêm location mới nếu chưa có
-    final updatedList = [...existingList, location];
-    await box.put(today, updatedList);
+  @override
+  Future<void> saveHistoryLocation(LocationModel location) async {
+    final prefs = await SharedPreferences.getInstance();
+    final today = DateTime.now().toIso8601String().split("T").first;
+
+    final existing = await getHistoryLocation();
+
+    // Check duplicate
+    final alreadyExists = existing.any((loc) => loc == location);
+    if (!alreadyExists) {
+      existing.add(location);
+      final encoded = json.encode(existing.map((e) => e.toJson()).toList());
+      await prefs.setString('$_prefix$today', encoded);
+    }
   }
 }

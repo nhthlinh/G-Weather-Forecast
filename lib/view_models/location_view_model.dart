@@ -1,12 +1,15 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:g_feather_forecast/models/location_model.dart';
 import 'package:g_feather_forecast/repositories/history_location_repository.dart';
 import 'package:g_feather_forecast/repositories/location_repository.dart';
+import 'dart:io' show Platform;
 
 class LocationViewModel extends ChangeNotifier {
   final LocationRepository _locationRepository = LocationRepository();
-  final HistoryLocationRepository _historyLocationRepository =
-      HistoryLocationRepository();
+
+  late final HistoryLocationRepository _historyLocationRepository = getRepository();
+
   final List<LocationModel> _locations = [];
   final List<LocationModel> _historyLocations = [];
   bool _isLoading = false;
@@ -14,6 +17,14 @@ class LocationViewModel extends ChangeNotifier {
   List<LocationModel> get locations => _locations;
   List<LocationModel> get historyLocations => _historyLocations;
   bool get isLoading => _isLoading;
+
+  HistoryLocationRepository getRepository() {
+    if (kIsWeb) {
+      return WebHistoryLocationRepository();
+    } else {
+      return MobileHistoryLocationRepository();
+    }
+  }
 
   Future<void> fetchLocation(String location) async {
     _isLoading = true;
@@ -26,7 +37,8 @@ class LocationViewModel extends ChangeNotifier {
   }
 
   Future<void> saveHistoryLocation(LocationModel locationModel) async {
-    if (historyLocations.isEmpty || !historyLocations.any((h) => h.id == locationModel.id)) {
+    if (historyLocations.isEmpty ||
+        !historyLocations.any((h) => h.id == locationModel.id)) {
       historyLocations.insert(0, locationModel);
       await _historyLocationRepository.saveHistoryLocation(locationModel);
       notifyListeners();

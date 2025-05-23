@@ -317,7 +317,7 @@ class _HomePageState extends State<HomePage> {
                       flex: 1,
                       child: Align(
                         alignment: Alignment.topCenter,
-                        child: col,
+                        child: SingleChildScrollView(child: col),
                       ),
                     );
                   }),

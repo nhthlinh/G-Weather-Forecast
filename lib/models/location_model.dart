@@ -1,29 +1,10 @@
-
-import 'package:hive/hive.dart';
-
-part 'location_model.g.dart';
-
-@HiveType(typeId: 0)
-class LocationModel extends HiveObject {
-  @HiveField(0)
+class LocationModel {
   int id; 
-
-  @HiveField(1)
   String name;
-
-  @HiveField(2)
   String region;
-
-  @HiveField(3)
   String country;
-
-  @HiveField(4)
   double lat;
-
-  @HiveField(5)
   double lon;
-
-  @HiveField(6)
   String url;
 
   LocationModel({
