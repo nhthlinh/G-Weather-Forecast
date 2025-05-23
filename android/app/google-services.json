@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "516794526925",
+    "project_id": "g-weather-forecast-43115",
+    "storage_bucket": "g-weather-forecast-43115.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:516794526925:android:b07fd19f5437e9a0994d84",
+        "android_client_info": {
+          "package_name": "com.example.g_feather_forecast"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_IuxtxOT42O5feQOmiyN_zShlNxWaBhg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

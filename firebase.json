@@ -1,0 +1,48 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "g-weather-forecast-43115",
+          "appId": "1:516794526925:android:b07fd19f5437e9a0994d84",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "g-weather-forecast-43115",
+          "configurations": {
+            "android": "1:516794526925:android:b07fd19f5437e9a0994d84",
+            "ios": "1:516794526925:ios:1cfdcf284329ec8d994d84",
+            "macos": "1:516794526925:ios:1cfdcf284329ec8d994d84",
+            "web": "1:516794526925:web:6611a419adc54f6d994d84"
+          }
+        }
+      }
+    }
+  },
+  "hosting": {
+    "public": "build/web",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "*.local"
+      ],
+      "predeploy": [
+        "npm --prefix \"$RESOURCE_DIR\" run build"
+      ]
+    }
+  ]
+}
