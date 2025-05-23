@@ -32,24 +32,6 @@
           Khi nhập tên thành phố vào ô tìm kiếm sẽ được gợi ý các thành phố có tên tương tự.
         - Lưu lại thành phố đã xem trong ngày.
         - Đăng ký và hủy nhận thông báo qua email về thời tiết hàng ngày.
+        - Tự động gửi mail về thời tiết mỗi ngày.
 
 ## Demo ứng dụng
-https://github.com/user-attachments/assets/5cb4b699-8167-4079-a3d1-ad5b089aefba
-
-
-- **Trang chủ:**
-  ![Home](/assets/images/home_page.png)
-- **Tìm kiếm thành phố:**
-  ![Search](/assets/images/search_location.png)
-- **Đăng ký nhận thông báo qua email:**
-  ![Register](/assets/images/register_daily_weather.png)
-- **Thông báo qua email:**
-  ![Email](/assets/images/email.png)
-- **Xác thực email và chuyển hướng đến ứng dụng:**
-  ![Verify](/assets/images/verify_email.png)
-  ![Verify](/assets/images/verified_email.png)
-- **Responsive:**
-    - Tablet:
-      ![Responsive](/assets/images/responsive_tablet.png)
-    - Mobile:
-      ![Responsive](/assets/images/responsive_mobile.png)
