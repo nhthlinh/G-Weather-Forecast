@@ -84,6 +84,18 @@ class FirebaseRepository {
         return UnsubscribeResult.userNotFound;
       }
 
+      // Xoá document trong Firestore (subscriptions) theo email
+      final firestore = FirebaseFirestore.instance;
+      final querySnapshot = await firestore
+          .collection('subscriptions')
+          .where('email', isEqualTo: email)
+          .get();
+
+      for (final doc in querySnapshot.docs) {
+        await doc.reference.delete();
+        log('Đã xoá document subscriptions/${doc.id}');
+      }
+
       // Xác thực lại người dùng trước khi xóa
       await user.delete();
       emailController.clear();
@@ -114,8 +126,16 @@ class FirebaseRepository {
     if (user == null) return;
 
     for (int i = 0; i < 50; i++) {
-      await user?.reload(); // Cập nhật lại trạng thái từ server
-      user = FirebaseAuth.instance.currentUser; // Lấy lại user mới
+      // Đăng nhập lại để đảm bảo trạng thái mới được lấy từ server
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: email, // hoặc mật khẩu thật sự nếu có
+      );
+
+      var user = FirebaseAuth.instance.currentUser;
+      await user?.reload();
+      
+      log('Đã reload lần $i. Trạng thái xác minh: ${user?.emailVerified}');
 
       if (user != null && user.emailVerified) {
         log('Email verified');
@@ -124,12 +144,12 @@ class FirebaseRepository {
           'email': email,
           'location': ip,
         });
+        log('Đã thêm vào Firestore');
         return;
       }
 
       await Future.delayed(const Duration(seconds: 5));
     }
-
     log('Email not verified after waiting.');
   }
 

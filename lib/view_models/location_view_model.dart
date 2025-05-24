@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:g_feather_forecast/models/location_model.dart';
 import 'package:g_feather_forecast/repositories/history_location_repository.dart';
 import 'package:g_feather_forecast/repositories/location_repository.dart';
-import 'dart:io' show Platform;
 
 class LocationViewModel extends ChangeNotifier {
   final LocationRepository _locationRepository = LocationRepository();
