@@ -35,3 +35,18 @@
         - Tự động gửi mail về thời tiết mỗi ngày.
 
 ## Demo ứng dụng
+
+Link: [G-weather-forecast](https://g-weather-forecast-43115.web.app/)
+
+- Trang chính: ![alt text](image.png)
+- Đề xuất khi tìm kiếm: ![alt text](image-3.png)
+- Khi tìm kiếm một thành phố khác: ![alt text](image-1.png)
+- Xem thêm các ngày kế: ![alt text](image-2.png)
+- Đăng ký nhận thông báo thời tiết: ![alt text](image-4.png)
+- Mail xác nhận đăng ký: ![alt text](image-5.png)
+- Mail thông báo gửi về: ![alt text](image-6.png)
+
+## Lỗi:
+
+- Test local cho chức năng đăng ký nhận thông báo nhưng khi deploy bị lỗi bất đồng bộ khiến email không thể đăng ký đúng như ý muốn.
+- Cron-job không thể chạy định kỳ như ý muốn.
