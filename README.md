@@ -36,7 +36,8 @@
 
 ## Demo ứng dụng
 
-Link: [G-weather-forecast](https://g-weather-forecast-43115.web.app/)
+Link web: [G-weather-forecast](https://g-weather-forecast-43115.web.app/)
+Linh apk: [G-weather-forecast-app android](https://drive.google.com/file/d/1ovGi2xrKDDHHc2GdC69x9HmgC8WrWs8W/view?usp=sharing)
 
 - Trang chính: ![alt text](image.png)
 - Đề xuất khi tìm kiếm: ![alt text](image-3.png)
