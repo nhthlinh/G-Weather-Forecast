@@ -17,7 +17,6 @@
 - Kiến trúc project: **MVVM**
 - Một số thư viện sử dụng:
     - **Dio:** Thực hiện các request API.
-    - **Hive:** Lưu trữ dữ liệu local.
     - **Dart_ipify:** Lấy IP của người dùng.
     - **Firebase:** Gửi mail thông báo thời tiết hàng ngày và xác thực email. Deploy ứng dụng.
 
